@@ -29,7 +29,7 @@ class Converter extends CI_Controller
     public function index() {
         $data = array(
             'header_title' => "Convert exchange rates | Paul UniTrust",
-            'header_description' => "The best echange rate converter there is",
+            'header_description' => "The best exchange rate converter there is",
             'page_title' => "Convert exchange rates",
         );
 
@@ -51,8 +51,17 @@ class Converter extends CI_Controller
         return $availableCurrencies;
     }
 
-    //get currencies from DB
-    public function getLatestCurrencies() {
+    public function documentation() {
+        $data = array(
+            'header_title' => "Documentation | Paul UniTrust",
+            'header_description' => "Information about the best echange rate converter there is",
+            'page_title' => "Documentation",
+        );
+
+        $this->parser->parse('templates/header', $data);
+        $this->parser->parse('templates/navigation', $data);
+        $this->parser->parse('documentation', $data);
+        $this->parser->parse('templates/footer', $data);
 
     }
 }

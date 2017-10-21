@@ -59,6 +59,7 @@ $route['api/get-available-currencies'] = 'api/getAvailableCurrencies';
 $route['api/convert'] = 'api/convert';
 
 //frontend routes
+$route['documentation'] = 'converter/documentation';
 
 
 $route['default_controller'] = 'converter';
