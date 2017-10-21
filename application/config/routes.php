@@ -49,6 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['api/get-latest-currencies'] = 'converter/getLatestCurrencies';
+$route['api/retrieve-history'] = 'populator/retrieveHistory';
+
 $route['default_controller'] = 'homepage';
 $route['404_override'] = 'errors/404';
 $route['translate_uri_dashes'] = FALSE;
