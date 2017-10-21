@@ -8,6 +8,7 @@
 
 /**
  * Class Populator
+ * This class is for communicating with the fixer.io API and saving the output
  */
 class Populator extends CI_Controller
 {
@@ -30,6 +31,9 @@ class Populator extends CI_Controller
 
     }
 
+    /**
+     * Retrieve historical rates and sent them to the model
+     */
     public function retrieveHistory() {
         //get oldest available currency
         $oldestDate = $this->populator_model->getOldestCurrencyUpdate();
@@ -55,13 +59,10 @@ class Populator extends CI_Controller
 
         $rateInfo = array();
         for($counter = 0; $counter < $maxRequests; $counter++) {
-            echo "Counter " . $counter . ", startDate: $historyDate, ";
-
             $json = file_get_contents('https://api.fixer.io/' . $historyDate);
             $obj = json_decode($json);
 
             //create the data to sent to the model
-//            $rateInfo[$counter] = array();
             $base = $obj->base;
             $date = $obj->date;
             foreach($obj->rates as $currency => $rate) {
@@ -72,9 +73,7 @@ class Populator extends CI_Controller
                 $rateInfo[$counter . $currency]['rate'] = $rate;
             }
 
-            echo "<hr>";
-
-            //get the date to retrieve currency of
+            //update the date to retrieve currency of
             $historyDate = date("Y-m-d", strtotime("-1 day", strtotime($historyDate)));
         }
 
@@ -84,7 +83,5 @@ class Populator extends CI_Controller
         } else {
             echo "Something went wrong! Please try again";
         }
-//        echo "<pre>";
-//        die(var_dump($rateInfo));
     }
 }

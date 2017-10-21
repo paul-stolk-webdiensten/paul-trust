@@ -20,16 +20,22 @@ class Populator_model extends CI_Model
         $this->load->database();
     }
 
-    //get the oldest available currency
+    /**
+     * Get the oldest available currency
+     * @return mixed
+     */
     public function getOldestCurrencyUpdate() {
         $this->db->order_by("date", "ASC");
         return $this->db->get("rates")->row()->date;
     }
 
-    //insert multiple rates
+    /**
+     * Insert multiple rates
+     * @param $insertArray
+     * @return int
+     */
     public function insertMultipleRates($insertArray) {
         echo "<pre>";
-//        die(var_dump($insertArray));
         return $this->db->insert_batch("rates", $insertArray);
     }
 }
