@@ -1,0 +1,20 @@
+.btn-right {
+    float: right;
+}
+
+table.dataTable thead > tr > th {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.remove-tag:hover {
+    cursor: pointer;
+}
+
+.removed {
+    text-decoration: line-through;
+}
+
+.upload_form > ul {
+    display: none;
+}
