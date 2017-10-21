@@ -22,13 +22,34 @@ class Populator extends CI_Controller
         $this->load->model('populator_model');
     }
 
-    //get latest currencies from the API
+    /**
+     * Get the latest currencies
+     * @param string $base
+     */
     public function getLatestCurrencies($base = "EUR") {
-    }
+        $json = file_get_contents('https://api.fixer.io/latest');
+        $obj = json_decode($json);
+        if(!$this->populator_model->checkDateExists($obj->date)) {
 
-    //get the currencies on a certain date
-    public function getCurrenciesByDate($date, $base = "EUR") {
+            //create the data to sent to the model
+            $base = $obj->base;
+            $date = $obj->date;
+            foreach($obj->rates as $currency => $rate) {
+                $rateInfo[$currency] = array();
+                $rateInfo[$currency]['base'] = $base;
+                $rateInfo[$currency]['date'] = $date;
+                $rateInfo[$currency]['currency'] = $currency;
+                $rateInfo[$currency]['rate'] = $rate;
+            }
 
+            if($amountInserted = $this->populator_model->insertMultipleRates($rateInfo)) {
+                echo $amountInserted . " new rates inserted";
+            } else {
+                echo "Rates inserting failed";
+            }
+        } else {
+            echo "Rates are up to date";
+        }
     }
 
     /**

@@ -38,4 +38,9 @@ class Populator_model extends CI_Model
         echo "<pre>";
         return $this->db->insert_batch("rates", $insertArray);
     }
+
+    public function checkDateExists($date) {
+        $this->db->where("date", $date);
+        return $this->db->get("rates")->num_rows();
+    }
 }

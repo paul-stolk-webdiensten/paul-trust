@@ -50,8 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+//popuplator routes
+$route['populator/retrieve-history'] = 'populator/retrieveHistory';
+$route['populator/get-latest-currency'] = 'populator/getLatestCurrencies';
+
 //API routes
-$route['api/retrieve-history'] = 'populator/retrieveHistory';
 $route['api/get-available-currencies'] = 'api/getAvailableCurrencies';
 $route['api/convert'] = 'api/convert';
 
